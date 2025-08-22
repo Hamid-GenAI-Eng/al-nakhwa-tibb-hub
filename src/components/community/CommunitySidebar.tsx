@@ -75,31 +75,40 @@ const CommunitySidebar = () => {
     }`;
 
   return (
-    <Sidebar className={collapsed ? "w-20" : "w-80"} collapsible="icon">
-      <SidebarContent className="p-4">
+    <Sidebar className={collapsed ? "w-16 lg:w-20" : "w-72 lg:w-80"} collapsible="icon">
+      <SidebarContent className="p-2 lg:p-4">
         {/* Profile Section */}
         {!collapsed && (
-          <div className="mb-6 p-4 rounded-lg card-gradient border">
-            <div className="flex items-center space-x-3 mb-3">
-              <Avatar className="h-12 w-12">
+          <div className="mb-4 lg:mb-6 p-3 lg:p-4 rounded-lg card-gradient border">
+            <div className="flex items-center space-x-2 lg:space-x-3 mb-2 lg:mb-3">
+              <Avatar className="h-10 w-10 lg:h-12 lg:w-12">
                 <AvatarImage src="/placeholder.svg" alt="Dr. Ahmad Hassan" />
-                <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                <AvatarFallback className="bg-primary text-primary-foreground font-semibold text-xs lg:text-sm">
                   AH
                 </AvatarFallback>
               </Avatar>
-              <div className="flex-1">
-                <h3 className="font-semibold text-sm">Dr. Ahmad Hassan</h3>
-                <p className="text-xs text-muted-foreground">Senior Hakeem • Karachi</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-xs lg:text-sm truncate">Dr. Ahmad Hassan</h3>
+                <p className="text-xs text-muted-foreground truncate">Senior Hakeem • Karachi</p>
                 <div className="flex items-center mt-1">
                   <Stethoscope className="h-3 w-3 text-primary mr-1" />
-                  <span className="text-xs text-primary">15 years experience</span>
+                  <span className="text-xs text-primary">15 years exp</span>
                 </div>
               </div>
             </div>
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span><strong className="text-foreground">1.2K</strong> Following</span>
-              <span><strong className="text-foreground">2.8K</strong> Followers</span>
-              <span><strong className="text-foreground">450</strong> Posts</span>
+            <div className="grid grid-cols-3 gap-1 text-xs text-muted-foreground">
+              <div className="text-center">
+                <div className="font-semibold text-foreground">1.2K</div>
+                <div className="text-xs">Following</div>
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-foreground">2.8K</div>
+                <div className="text-xs">Followers</div>
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-foreground">450</div>
+                <div className="text-xs">Posts</div>
+              </div>
             </div>
           </div>
         )}
@@ -115,8 +124,8 @@ const CommunitySidebar = () => {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url} className={getNavCls({ isActive: isActive(item.url) })}>
-                      <item.icon className="h-5 w-5 flex-shrink-0" />
-                      {!collapsed && <span>{item.title}</span>}
+                      <item.icon className="h-4 w-4 lg:h-5 lg:w-5 flex-shrink-0" />
+                      {!collapsed && <span className="text-sm lg:text-base">{item.title}</span>}
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -127,8 +136,8 @@ const CommunitySidebar = () => {
 
         {/* Create Post Button */}
         {!collapsed && (
-          <Button variant="hero" className="w-full mt-4 mb-6">
-            <Plus className="h-4 w-4 mr-2" />
+          <Button variant="hero" className="w-full mt-3 mb-4 lg:mt-4 lg:mb-6 text-sm lg:text-base h-9 lg:h-10">
+            <Plus className="h-4 w-4 mr-1 lg:mr-2" />
             Create Post
           </Button>
         )}

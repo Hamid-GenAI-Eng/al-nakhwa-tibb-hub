@@ -117,38 +117,41 @@ const CommunityFeed = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto border-x border-border/50 min-h-screen">
+    <div className="w-full max-w-2xl mx-auto lg:border-x border-border/50 min-h-screen">
       {/* Feed Header */}
       <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-40 border-b border-border/50">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 h-12 bg-transparent p-0 rounded-none border-0">
+          <TabsList className="grid w-full grid-cols-3 h-10 lg:h-12 bg-transparent p-0 rounded-none border-0">
             <TabsTrigger 
               value="for-you" 
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent text-xs sm:text-sm px-2 sm:px-4"
             >
-              <TrendingUp className="h-4 w-4 mr-2" />
-              For You
+              <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">For You</span>
+              <span className="sm:hidden">For You</span>
             </TabsTrigger>
             <TabsTrigger 
               value="following" 
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent text-xs sm:text-sm px-2 sm:px-4"
             >
-              <Users className="h-4 w-4 mr-2" />
-              Following
+              <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Following</span>
+              <span className="sm:hidden">Following</span>
             </TabsTrigger>
             <TabsTrigger 
               value="latest" 
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent text-xs sm:text-sm px-2 sm:px-4"
             >
-              <Clock className="h-4 w-4 mr-2" />
-              Latest
+              <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Latest</span>
+              <span className="sm:hidden">Latest</span>
             </TabsTrigger>
           </TabsList>
         </Tabs>
         
         <div className="flex justify-end p-2 border-t border-border/50">
-          <Button variant="ghost" size="sm">
-            <Filter className="h-4 w-4 mr-2" />
+          <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
+            <Filter className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
             Filter
           </Button>
         </div>

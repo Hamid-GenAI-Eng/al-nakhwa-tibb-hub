@@ -10,7 +10,7 @@ const Community = () => {
         <CommunityHeader />
         <div className="flex min-h-screen w-full pt-16">
           <CommunitySidebar />
-          <main className="flex-1 overflow-hidden">
+          <main className="flex-1 overflow-hidden px-0 sm:px-2 lg:px-4">
             <CommunityFeed />
           </main>
         </div>
