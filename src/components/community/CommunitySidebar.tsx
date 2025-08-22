@@ -9,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -63,8 +64,9 @@ const suggestedGroups = [
 ];
 
 const CommunitySidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const { state } = useSidebar();
   const location = useLocation();
+  const collapsed = state === "collapsed";
   
   const isActive = (url: string) => location.hash === url;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
