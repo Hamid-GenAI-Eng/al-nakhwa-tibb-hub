@@ -5,17 +5,17 @@ import CommunityHeader from "@/components/community/CommunityHeader";
 
 const Community = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <CommunityHeader />
-      <SidebarProvider>
+    <SidebarProvider>
+      <div className="min-h-screen bg-background w-full">
+        <CommunityHeader />
         <div className="flex min-h-screen w-full pt-16">
           <CommunitySidebar />
           <main className="flex-1 overflow-hidden">
             <CommunityFeed />
           </main>
         </div>
-      </SidebarProvider>
-    </div>
+      </div>
+    </SidebarProvider>
   );
 };
 
