@@ -1,41 +1,13 @@
-import { Link } from "react-router-dom";
+import AuthenticatedHeader from "@/components/auth/AuthenticatedHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import { ArrowLeft, Bot, MessageSquare, Sparkles, Users } from "lucide-react";
 
 const AIChat = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 w-full z-50 card-gradient shadow-medium border-b border-border/50 backdrop-blur-sm h-16">
-        <div className="container mx-auto px-4 h-full">
-          <div className="flex items-center justify-between h-full">
-            <div className="flex items-center space-x-4">
-              <Link to="/">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Home
-                </Button>
-              </Link>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-lg hero-gradient flex items-center justify-center">
-                  <Bot className="h-5 w-5 text-primary-foreground" />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold text-gradient-primary">AI Hakeem Assistant</h1>
-                  <p className="text-xs text-muted-foreground">Traditional Medicine AI</p>
-                </div>
-              </div>
-            </div>
-            <Link to="/community">
-              <Button variant="outline" size="sm">
-                <Users className="h-4 w-4 mr-2" />
-                Community
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <AuthenticatedHeader />
 
       {/* Main Content */}
       <main className="pt-20 pb-16 px-4">

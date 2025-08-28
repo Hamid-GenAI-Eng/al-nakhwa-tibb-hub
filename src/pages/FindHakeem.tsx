@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import AuthenticatedHeader from "@/components/auth/AuthenticatedHeader";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ArrowLeft, Stethoscope, MapPin, Star, Filter, Search, Users, MessageSquare } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
+import { ArrowLeft, MessageSquare, Sparkles, Star, MapPin, Clock, Globe, Search, Filter } from "lucide-react";
 
 const mockHakeems = [
   {
@@ -57,43 +58,7 @@ const FindHakeem = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 w-full z-50 card-gradient shadow-medium border-b border-border/50 backdrop-blur-sm h-16">
-        <div className="container mx-auto px-4 h-full">
-          <div className="flex items-center justify-between h-full">
-            <div className="flex items-center space-x-4">
-              <Link to="/">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Home
-                </Button>
-              </Link>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-lg hero-gradient flex items-center justify-center">
-                  <Stethoscope className="h-5 w-5 text-primary-foreground" />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold text-gradient-primary">Find Hakeem</h1>
-                  <p className="text-xs text-muted-foreground">Certified Practitioners</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Link to="/ai-chat">
-                <Button variant="outline" size="sm">
-                  AI Chat
-                </Button>
-              </Link>
-              <Link to="/community">
-                <Button variant="outline" size="sm">
-                  <Users className="h-4 w-4 mr-2" />
-                  Community
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <AuthenticatedHeader />
 
       {/* Main Content */}
       <main className="pt-20 pb-16">

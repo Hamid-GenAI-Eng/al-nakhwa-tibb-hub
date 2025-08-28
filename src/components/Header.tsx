@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sparkles, Users, ShoppingBag, MessageSquare } from "lucide-react";
+import { AuthModal } from "@/components/auth/AuthModal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const navItems = [
     { name: "AI Chatbot", href: "#chatbot", icon: Sparkles },
@@ -55,7 +57,11 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="hero" size="sm">
+            <Button 
+              variant="hero" 
+              size="sm"
+              onClick={() => setIsAuthModalOpen(true)}
+            >
               Get Started
             </Button>
           </div>
@@ -96,13 +102,26 @@ const Header = () => {
                   </a>
                 )
               ))}
-              <Button variant="hero" size="sm" className="w-full mt-4">
+              <Button 
+                variant="hero" 
+                size="sm" 
+                className="w-full mt-4"
+                onClick={() => {
+                  setIsAuthModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
                 Get Started
               </Button>
             </nav>
           </div>
         )}
       </div>
+
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </header>
   );
 };
