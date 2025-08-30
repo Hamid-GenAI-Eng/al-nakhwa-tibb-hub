@@ -36,9 +36,11 @@ const AIChat = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button variant="hero" className="w-full">
-                  Start AI Consultation
-                </Button>
+                <Link to="/consultation">
+                  <Button variant="hero" className="w-full">
+                    Start AI Consultation
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 

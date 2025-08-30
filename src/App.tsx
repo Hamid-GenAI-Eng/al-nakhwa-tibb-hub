@@ -10,6 +10,7 @@ import Community from "./pages/Community";
 import AIChat from "./pages/AIChat";
 import FindHakeem from "./pages/FindHakeem";
 import Products from "./pages/Products";
+import Consultation from "./pages/Consultation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <Products />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/consultation" 
+              element={
+                <ProtectedRoute>
+                  <Consultation />
                 </ProtectedRoute>
               } 
             />
