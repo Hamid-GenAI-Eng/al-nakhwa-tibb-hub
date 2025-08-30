@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles, Users, ShoppingBag, MessageSquare } from "lucide-react";
+import { Menu, X, Bot, Stethoscope, Package, MessageSquare } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 
 const Header = () => {
@@ -9,9 +9,9 @@ const Header = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const navItems = [
-    { name: "AI Chatbot", href: "#chatbot", icon: Sparkles },
-    { name: "Find Hakeem", href: "#hakeem", icon: Users },
-    { name: "Medicine Store", href: "#store", icon: ShoppingBag },
+    { name: "AI Assistant", href: "/ai-chat", icon: Bot },
+    { name: "Find Hakeem", href: "/find-hakeem", icon: Stethoscope },
+    { name: "Products", href: "/products", icon: Package },
     { name: "Community", href: "/community", icon: MessageSquare },
   ];
 
