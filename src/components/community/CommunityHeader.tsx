@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Search, Bell, MessageCircle, Settings, ArrowLeft, Bot, Stethoscope, Package } from "lucide-react";
+import { Search, Bell, MessageCircle, Settings } from "lucide-react";
 
 const CommunityHeader = () => {
   return (
@@ -15,33 +15,6 @@ const CommunityHeader = () => {
           <div className="flex items-center space-x-2 sm:space-x-4">
             <SidebarTrigger className="lg:hidden" />
             
-            {/* Navigation buttons - visible on mobile */}
-            <div className="flex items-center space-x-1 sm:space-x-2">
-              <Link to="/">
-                <Button variant="ghost" size="sm" className="h-8 px-2 sm:px-3">
-                  <ArrowLeft className="h-4 w-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Home</span>
-                </Button>
-              </Link>
-              <Link to="/ai-chat">
-                <Button variant="ghost" size="sm" className="h-8 px-2 sm:px-3">
-                  <Bot className="h-4 w-4 sm:mr-2" />
-                  <span className="hidden sm:inline">AI Chat</span>
-                </Button>
-              </Link>
-              <Link to="/find-hakeem">
-                <Button variant="ghost" size="sm" className="h-8 px-2 sm:px-3">
-                  <Stethoscope className="h-4 w-4 sm:mr-2" />
-                  <span className="hidden md:inline">Find Hakeem</span>
-                </Button>
-              </Link>
-              <Link to="/products">
-                <Button variant="ghost" size="sm" className="h-8 px-2 sm:px-3">
-                  <Package className="h-4 w-4 sm:mr-2" />
-                  <span className="hidden md:inline">Products</span>
-                </Button>
-              </Link>
-            </div>
             
             {/* Logo - hidden on mobile to save space */}
             <div className="hidden lg:flex items-center space-x-2">

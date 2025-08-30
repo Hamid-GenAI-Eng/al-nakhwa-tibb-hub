@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -23,6 +24,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   
   const { login, signup, loginWithGoogle, isLoading } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         description: "Successfully logged in to Al-Nakhwa",
       });
       onClose();
+      navigate('/ai-chat');
     } catch (error) {
       toast({
         variant: "destructive",
@@ -51,6 +54,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         description: "Your account has been created successfully",
       });
       onClose();
+      navigate('/ai-chat');
     } catch (error) {
       toast({
         variant: "destructive",
@@ -68,6 +72,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         description: "Successfully logged in with Google",
       });
       onClose();
+      navigate('/ai-chat');
     } catch (error) {
       toast({
         variant: "destructive",
