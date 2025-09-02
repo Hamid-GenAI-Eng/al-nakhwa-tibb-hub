@@ -10,6 +10,10 @@ import Community from "./pages/Community";
 import AIChat from "./pages/AIChat";
 import FindHakeem from "./pages/FindHakeem";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
+import Wishlist from "./pages/Wishlist";
+import PaymentMethod from "./pages/PaymentMethod";
 import Consultation from "./pages/Consultation";
 import NotFound from "./pages/NotFound";
 
@@ -61,6 +65,38 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <Consultation />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/product/:id" 
+              element={
+                <ProtectedRoute>
+                  <ProductDetail />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/cart" 
+              element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/wishlist" 
+              element={
+                <ProtectedRoute>
+                  <Wishlist />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/payment-method" 
+              element={
+                <ProtectedRoute>
+                  <PaymentMethod />
                 </ProtectedRoute>
               } 
             />

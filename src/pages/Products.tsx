@@ -130,62 +130,74 @@ const Products = () => {
           {/* Products Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
             {mockProducts.map((product) => (
-              <Card key={product.id} className="hover-lift group">
-                <CardHeader className="p-0">
-                  <div className="relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-48 object-cover rounded-t-lg"
-                    />
-                    <div className="absolute top-2 left-2 flex gap-2">
-                      {product.organic && (
-                        <Badge variant="secondary" className="bg-green-100 text-green-800">
-                          Organic
-                        </Badge>
-                      )}
-                      {!product.inStock && (
-                        <Badge variant="destructive">
-                          Out of Stock
-                        </Badge>
-                      )}
+              <Card key={product.id} className="hover-lift group cursor-pointer">
+                <Link to={`/product/${product.id}`}>
+                  <CardHeader className="p-0">
+                    <div className="relative">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-48 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute top-2 left-2 flex gap-2">
+                        {product.organic && (
+                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                            Organic
+                          </Badge>
+                        )}
+                        {!product.inStock && (
+                          <Badge variant="destructive">
+                            Out of Stock
+                          </Badge>
+                        )}
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }}
+                      >
+                        <Heart className="h-4 w-4" />
+                      </Button>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white"
-                    >
-                      <Heart className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-4">
-                  <Badge variant="outline" className="mb-2 text-xs">
-                    {product.category}
-                  </Badge>
-                  <CardTitle className="text-lg mb-2">{product.name}</CardTitle>
-                  <CardDescription className="text-sm mb-3">
-                    {product.description}
-                  </CardDescription>
-                  <div className="flex items-center mb-3">
-                    <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                    <span className="text-sm font-medium">{product.rating}</span>
-                    <span className="text-xs text-muted-foreground ml-1">
-                      ({product.reviews} reviews)
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg font-bold text-primary">{product.price}</span>
-                    <span className="text-sm text-muted-foreground line-through">
-                      {product.originalPrice}
-                    </span>
-                  </div>
-                </CardContent>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <Badge variant="outline" className="mb-2 text-xs">
+                      {product.category}
+                    </Badge>
+                    <CardTitle className="text-lg mb-2 group-hover:text-primary transition-colors">
+                      {product.name}
+                    </CardTitle>
+                    <CardDescription className="text-sm mb-3">
+                      {product.description}
+                    </CardDescription>
+                    <div className="flex items-center mb-3">
+                      <Star className="h-4 w-4 text-yellow-500 fill-current mr-1" />
+                      <span className="text-sm font-medium">{product.rating}</span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        ({product.reviews} reviews)
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-lg font-bold text-primary">{product.price}</span>
+                      <span className="text-sm text-muted-foreground line-through">
+                        {product.originalPrice}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Link>
                 <CardFooter className="p-4 pt-0">
                   <Button
                     variant={product.inStock ? "hero" : "outline"}
                     className="w-full"
                     disabled={!product.inStock}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
                   >
                     <ShoppingCart className="h-4 w-4 mr-2" />
                     {product.inStock ? "Add to Cart" : "Out of Stock"}

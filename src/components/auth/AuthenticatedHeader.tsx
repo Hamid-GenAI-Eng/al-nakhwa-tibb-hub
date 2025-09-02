@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles, Users, ShoppingBag, MessageSquare, LogOut, User } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Menu, X, Sparkles, Users, ShoppingBag, MessageSquare, LogOut, User, Heart, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   DropdownMenu,
@@ -17,6 +18,8 @@ const AuthenticatedHeader = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [cartItemsCount] = useState(2); // Mock cart count
+  const [wishlistCount] = useState(3); // Mock wishlist count
 
   const navItems = [
     { name: "AI Chatbot", href: "/ai-chat", icon: Sparkles },
@@ -65,8 +68,28 @@ const AuthenticatedHeader = () => {
             ))}
           </nav>
 
-          {/* User Menu */}
-          <div className="hidden md:block">
+          {/* User Menu & Actions */}
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Cart and Wishlist Icons */}
+            <Link to="/wishlist" className="relative p-2 hover:bg-muted rounded-lg transition-colors">
+              <Heart className="h-5 w-5" />
+              {wishlistCount > 0 && (
+                <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs p-0">
+                  {wishlistCount}
+                </Badge>
+              )}
+            </Link>
+            
+            <Link to="/cart" className="relative p-2 hover:bg-muted rounded-lg transition-colors">
+              <ShoppingCart className="h-5 w-5" />
+              {cartItemsCount > 0 && (
+                <Badge variant="default" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs p-0">
+                  {cartItemsCount}
+                </Badge>
+              )}
+            </Link>
+
+            {/* User Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center space-x-2">
@@ -115,6 +138,41 @@ const AuthenticatedHeader = () => {
                   <span>{item.name}</span>
                 </Link>
               ))}
+              
+              {/* Mobile Cart & Wishlist */}
+              <div className="flex space-x-4 py-2">
+                <Link
+                  to="/wishlist"
+                  className="flex items-center space-x-3 text-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <div className="relative">
+                    <Heart size={18} />
+                    {wishlistCount > 0 && (
+                      <Badge variant="destructive" className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center text-xs p-0">
+                        {wishlistCount}
+                      </Badge>
+                    )}
+                  </div>
+                  <span>Wishlist</span>
+                </Link>
+                
+                <Link
+                  to="/cart"
+                  className="flex items-center space-x-3 text-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <div className="relative">
+                    <ShoppingCart size={18} />
+                    {cartItemsCount > 0 && (
+                      <Badge variant="default" className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center text-xs p-0">
+                        {cartItemsCount}
+                      </Badge>
+                    )}
+                  </div>
+                  <span>Cart</span>
+                </Link>
+              </div>
               <div className="pt-4 border-t border-border/50">
                 <div className="flex items-center space-x-3 pb-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
