@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthenticatedHeader from "@/components/auth/AuthenticatedHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   ShoppingCart, 
   Plus, 
@@ -14,10 +15,13 @@ import {
   Truck,
   Shield,
   Tag,
-  CreditCard
+  CreditCard,
+  Clock,
+  MessageCircle,
+  Phone
 } from "lucide-react";
 
-// Mock cart data
+// Mock cart data with timestamps
 const mockCartItems = [
   {
     id: "1",
@@ -26,7 +30,8 @@ const mockCartItems = [
     originalPrice: 1500,
     image: "/placeholder.svg",
     quantity: 2,
-    inStock: true
+    inStock: true,
+    addedAt: Date.now() - 2 * 60 * 60 * 1000, // 2 hours ago
   },
   {
     id: "2", 
@@ -35,12 +40,47 @@ const mockCartItems = [
     originalPrice: 1000,
     image: "/placeholder.svg", 
     quantity: 1,
-    inStock: true
+    inStock: true,
+    addedAt: Date.now() - 5 * 60 * 60 * 1000, // 5 hours ago
   }
 ];
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(mockCartItems);
+  const [timeRemaining, setTimeRemaining] = useState("");
+
+  // Calculate remaining time for cart expiry
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (cartItems.length === 0) {
+        setTimeRemaining("");
+        return;
+      }
+
+      const oldestItem = cartItems.reduce((oldest, item) => 
+        item.addedAt < oldest.addedAt ? item : oldest
+      );
+      
+      const expiryTime = oldestItem.addedAt + (24 * 60 * 60 * 1000); // 24 hours
+      const now = Date.now();
+      const remaining = expiryTime - now;
+
+      if (remaining <= 0) {
+        // Remove expired items
+        const validItems = cartItems.filter(item => 
+          now - item.addedAt < 24 * 60 * 60 * 1000
+        );
+        setCartItems(validItems);
+        setTimeRemaining("");
+      } else {
+        const hours = Math.floor(remaining / (60 * 60 * 1000));
+        const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+        setTimeRemaining(`${hours}h ${minutes}m`);
+      }
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, [cartItems]);
 
   const updateQuantity = (id: string, newQuantity: number) => {
     if (newQuantity < 1) return;
@@ -60,6 +100,17 @@ const Cart = () => {
   const savings = originalTotal - subtotal;
   const deliveryFee = subtotal > 2000 ? 0 : 200;
   const total = subtotal + deliveryFee;
+
+  // WhatsApp order handler
+  const handleWhatsAppOrder = () => {
+    const orderDetails = cartItems.map(item => 
+      `${item.name} - Qty: ${item.quantity} - Rs. ${item.price * item.quantity}`
+    ).join('\n');
+    
+    const message = `السلام علیکم! I want to place an order:\n\n${orderDetails}\n\nTotal: Rs. ${total}\n\nPlease confirm my order.`;
+    const whatsappUrl = `https://wa.me/923001234567?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -97,6 +148,20 @@ const Cart = () => {
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Cart Items */}
               <div className="lg:col-span-2 space-y-4">
+                {/* Cart Expiry Notice */}
+                <Alert className="border-orange-200 bg-orange-50">
+                  <Clock className="h-4 w-4" />
+                  <AlertDescription>
+                    <strong>Cart Reminder:</strong> Your items will be kept in cart for <strong>24 hours</strong> only. 
+                    {timeRemaining && (
+                      <span className="text-orange-600 font-medium"> Time remaining: {timeRemaining}</span>
+                    )}
+                    <br />
+                    <span className="text-sm text-muted-foreground">
+                      Complete your purchase soon to secure these products at current prices.
+                    </span>
+                  </AlertDescription>
+                </Alert>
                 {cartItems.map((item) => (
                   <Card key={item.id} className="overflow-hidden hover-lift">
                     <CardContent className="p-6">
@@ -201,6 +266,17 @@ const Cart = () => {
                     </div>
 
                     <div className="space-y-3">
+                      {/* WhatsApp Order Button */}
+                      <Button 
+                        onClick={handleWhatsAppOrder}
+                        variant="outline" 
+                        className="w-full border-green-500 text-green-600 hover:bg-green-50 hover-lift"
+                      >
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        <Phone className="h-3 w-3 mr-1" />
+                        Order via WhatsApp
+                      </Button>
+                      
                       <Link to="/payment-method" className="w-full">
                         <Button className="w-full hero-gradient hover-lift">
                           <CreditCard className="h-4 w-4 mr-2" />

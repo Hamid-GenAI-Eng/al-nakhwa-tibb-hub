@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 import { 
   ArrowLeft, 
   Star, 
@@ -67,6 +68,7 @@ const mockProduct = {
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { toast } = useToast();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -74,6 +76,21 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     // Add to cart logic
     console.log("Added to cart:", { productId: id, quantity });
+    
+    // Show toast with cart reference
+    toast({
+      title: "✅ Added to Cart!",
+      description: (
+        <div className="flex items-center gap-2">
+          <span>{mockProduct.name} has been added to your cart.</span>
+          <div className="flex items-center text-primary font-medium">
+            <ShoppingCart className="h-4 w-4 mr-1" />
+            View Cart →
+          </div>
+        </div>
+      ),
+      duration: 4000,
+    });
   };
 
   const handleAddToWishlist = () => {
