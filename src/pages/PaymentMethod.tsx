@@ -25,6 +25,7 @@ import {
 
 const PaymentMethod = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [deliveryMethod, setDeliveryMethod] = useState("standard");
   const [deliveryAddress, setDeliveryAddress] = useState({
     fullName: "",
     phone: "",
@@ -34,19 +35,32 @@ const PaymentMethod = () => {
     postalCode: ""
   });
 
-  // Mock order summary
+  // Mock order summary with dynamic delivery cost
+  const deliveryCost = deliveryMethod === "express" ? 200 : 0;
   const orderSummary = {
     subtotal: 2000,
-    delivery: 0,
-    total: 2000,
+    delivery: deliveryCost,
+    total: 2000 + deliveryCost,
     savings: 500,
     items: 2
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Order placed:", { paymentMethod, deliveryAddress });
-    // Handle order submission
+    const orderData = {
+      paymentMethod,
+      deliveryMethod,
+      deliveryAddress,
+      orderSummary,
+      orderId: `ORD-${Date.now()}`
+    };
+    console.log("Order placed:", orderData);
+    
+    // Store order data in localStorage for demo purposes
+    localStorage.setItem('currentOrder', JSON.stringify(orderData));
+    
+    // Redirect to order confirmation
+    window.location.href = '/order-confirmation';
   };
 
   return (
@@ -140,6 +154,44 @@ const PaymentMethod = () => {
                       />
                     </div>
                   </div>
+                </CardContent>
+              </Card>
+
+              {/* Delivery Method */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Truck className="h-5 w-5" />
+                    Delivery Method
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <RadioGroup value={deliveryMethod} onValueChange={setDeliveryMethod} className="space-y-4">
+                    <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                      <RadioGroupItem value="standard" id="standard" />
+                      <Label htmlFor="standard" className="flex-1 cursor-pointer">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium">Standard Delivery</p>
+                            <p className="text-sm text-muted-foreground">3-5 business days</p>
+                          </div>
+                          <span className="text-green-600 font-medium">FREE</span>
+                        </div>
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                      <RadioGroupItem value="express" id="express" />
+                      <Label htmlFor="express" className="flex-1 cursor-pointer">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium">Express Delivery</p>
+                            <p className="text-sm text-muted-foreground">1-2 business days</p>
+                          </div>
+                          <span className="font-medium">Rs. 200</span>
+                        </div>
+                      </Label>
+                    </div>
+                  </RadioGroup>
                 </CardContent>
               </Card>
 
@@ -269,7 +321,11 @@ const PaymentMethod = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>Delivery Fee</span>
-                      <span className="text-green-600">FREE</span>
+                      {deliveryCost === 0 ? (
+                        <span className="text-green-600">FREE</span>
+                      ) : (
+                        <span>Rs. {deliveryCost}</span>
+                      )}
                     </div>
                     <Separator />
                     <div className="flex justify-between text-lg font-bold">
