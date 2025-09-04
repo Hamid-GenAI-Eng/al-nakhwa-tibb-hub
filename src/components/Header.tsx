@@ -20,15 +20,13 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg hero-gradient flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">ا</span>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gradient-primary">Al-Nakhwa</h1>
-              <p className="text-xs text-muted-foreground">Tibb Hub</p>
-            </div>
-          </div>
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/6bad9adc-cf94-4aaf-a2d9-ecc9d6233dd8.png" 
+              alt="Al Nukhwa - Where Purity Meets Prestige" 
+              className="h-12 w-auto hover:scale-105 transition-transform duration-200"
+            />
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
