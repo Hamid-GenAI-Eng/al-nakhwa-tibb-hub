@@ -16,6 +16,16 @@ import Wishlist from "./pages/Wishlist";
 import PaymentMethod from "./pages/PaymentMethod";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import OrderTracking from "./pages/OrderTracking";
+import AboutUs from "./pages/AboutUs";
+import OurStory from "./pages/OurStory";
+import Careers from "./pages/Careers";
+import PressKit from "./pages/PressKit";
+import HealthArticles from "./pages/HealthArticles";
+import RemedyGuide from "./pages/RemedyGuide";
+import ResearchPapers from "./pages/ResearchPapers";
+import AlNukhwaJournal from "./pages/AlNukhwaJournal";
+import FAQ from "./pages/FAQ";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Consultation from "./pages/Consultation";
 import NotFound from "./pages/NotFound";
 

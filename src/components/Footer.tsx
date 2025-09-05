@@ -29,28 +29,29 @@ const Footer = () => {
     company: {
       title: "Company",
       links: [
-        { name: "About Us", href: "#about" },
-        { name: "Our Story", href: "#story" },
-        { name: "Careers", href: "#careers" },
-        { name: "Press Kit", href: "#press" },
+        { name: "About Us", href: "/about-us" },
+        { name: "Our Story", href: "/our-story" },
+        { name: "Careers", href: "/careers" },
+        { name: "Press Kit", href: "/press-kit" },
       ]
     },
     resources: {
       title: "Resources",
       links: [
-        { name: "Health Articles", href: "#articles" },
-        { name: "Remedy Guide", href: "#guides" },
-        { name: "Research Papers", href: "#research" },
-        { name: "FAQs", href: "#faq" },
+        { name: "Health Articles", href: "/health-articles" },
+        { name: "Remedy Guide", href: "/remedy-guide" },
+        { name: "Research Papers", href: "/research-papers" },
+        { name: "Al-Nukhwa Journal", href: "/al-nukhwa-journal" },
+        { name: "FAQs", href: "/faq" },
       ]
     },
     legal: {
       title: "Legal",
       links: [
-        { name: "Privacy Policy", href: "#privacy" },
-        { name: "Terms of Service", href: "#terms" },
-        { name: "Medical Disclaimer", href: "#disclaimer" },
-        { name: "Refund Policy", href: "#refund" },
+        { name: "Privacy Policy", href: "/privacy-policy" },
+        { name: "Terms of Service", href: "/terms-of-service" },
+        { name: "Medical Disclaimer", href: "/medical-disclaimer" },
+        { name: "Refund Policy", href: "/refund-policy" },
       ]
     }
   };
