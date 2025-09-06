@@ -1,11 +1,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Calendar, Mail } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      <section className="relative py-20 overflow-hidden">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+        <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 hero-gradient opacity-5" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -64,7 +68,9 @@ const PrivacyPolicy = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 

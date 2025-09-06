@@ -2,6 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { 
   BookOpen, 
   Search, 
@@ -102,8 +104,10 @@ const HealthArticles = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Hero Section */}
+    <>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+        {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 hero-gradient opacity-5" />
         <div className="container mx-auto px-4 relative z-10">
@@ -309,7 +313,9 @@ const HealthArticles = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 
