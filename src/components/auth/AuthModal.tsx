@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Mail, Lock, User, Chrome } from 'lucide-react';
+import { OTPVerificationModal } from './OTPVerificationModal';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -21,8 +22,9 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [signupPassword, setSignupPassword] = useState('');
   const [signupName, setSignupName] = useState('');
   const [activeTab, setActiveTab] = useState('login');
+  const [showOTPModal, setShowOTPModal] = useState(false);
   
-  const { login, signup, loginWithGoogle, isLoading } = useAuth();
+  const { login, signup, verifyOTP, resendOTP, loginWithGoogle, isLoading, pendingUser } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -50,11 +52,10 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
     try {
       await signup(signupEmail, signupPassword, signupName);
       toast({
-        title: "Welcome to Al-Nakhwa!",
-        description: "Your account has been created successfully",
+        title: "Verification Required",
+        description: "Please check your email for the verification code",
       });
-      onClose();
-      navigate('/ai-chat');
+      setShowOTPModal(true);
     } catch (error) {
       toast({
         variant: "destructive",
@@ -62,6 +63,33 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         description: "Could not create account. Please try again.",
       });
     }
+  };
+
+  const handleOTPVerification = async (otp: string) => {
+    try {
+      await verifyOTP(otp);
+      toast({
+        title: "Welcome to Al-Nakhwa!",
+        description: "Your account has been verified successfully",
+      });
+      setShowOTPModal(false);
+      onClose();
+      // Reset form
+      setSignupEmail('');
+      setSignupPassword('');
+      setSignupName('');
+      navigate('/ai-chat');
+    } catch (error) {
+      throw error; // Re-throw to be handled by OTPVerificationModal
+    }
+  };
+
+  const handleCloseOTP = () => {
+    setShowOTPModal(false);
+  };
+
+  const handleResendOTP = () => {
+    resendOTP();
   };
 
   const handleGoogleLogin = async () => {
@@ -248,6 +276,15 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
           By continuing, you agree to our Terms of Service and Privacy Policy
         </p>
       </DialogContent>
+
+      <OTPVerificationModal
+        isOpen={showOTPModal}
+        onClose={handleCloseOTP}
+        onVerify={handleOTPVerification}
+        email={pendingUser?.email || signupEmail}
+        onResendOTP={handleResendOTP}
+        isLoading={isLoading}
+      />
     </Dialog>
   );
 };
