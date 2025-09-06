@@ -128,6 +128,16 @@ const App = () => (
                 </ProtectedRoute>
               } 
             />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/our-story" element={<OurStory />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/press-kit" element={<PressKit />} />
+            <Route path="/health-articles" element={<HealthArticles />} />
+            <Route path="/remedy-guide" element={<RemedyGuide />} />
+            <Route path="/research-papers" element={<ResearchPapers />} />
+            <Route path="/al-nukhwa-journal" element={<AlNukhwaJournal />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
