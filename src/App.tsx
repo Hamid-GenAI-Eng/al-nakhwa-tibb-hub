@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Community from "./pages/Community";
 import AIChat from "./pages/AIChat";
 import FindHakeem from "./pages/FindHakeem";
+import HakeemProfile from "./pages/HakeemProfile";
+import HakeemChat from "./pages/HakeemChat";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
@@ -61,6 +63,22 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <FindHakeem />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/hakeem/:id" 
+              element={
+                <ProtectedRoute>
+                  <HakeemProfile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/chat/:id" 
+              element={
+                <ProtectedRoute>
+                  <HakeemChat />
                 </ProtectedRoute>
               } 
             />

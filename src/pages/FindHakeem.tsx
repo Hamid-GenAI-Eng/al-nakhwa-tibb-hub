@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, MessageSquare, Sparkles, Star, MapPin, Clock, Globe, Search, Filter } from "lucide-react";
+import HakeemRegistrationForm from "@/components/hakeem/HakeemRegistrationForm";
 
 const mockHakeems = [
   {
@@ -52,9 +53,11 @@ const mockHakeems = [
 ];
 
 const FindHakeem = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -170,11 +173,11 @@ const FindHakeem = () => {
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                      <Button variant="hero" size="sm">
+                      <Button variant="hero" size="sm" onClick={() => navigate(`/chat/${hakeem.id}`)}>
                         <MessageSquare className="h-4 w-4 mr-2" />
                         Book Consultation
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={() => navigate(`/hakeem/${hakeem.id}`)}>
                         View Profile
                       </Button>
                     </div>
@@ -192,7 +195,7 @@ const FindHakeem = () => {
                 <p className="text-muted-foreground mb-6">
                   Join our platform to connect with patients seeking traditional medicine expertise
                 </p>
-                <Button variant="hero" size="lg">
+                <Button variant="hero" size="lg" onClick={() => setShowRegistrationForm(true)}>
                   Register as Hakeem
                 </Button>
               </CardContent>
@@ -200,6 +203,12 @@ const FindHakeem = () => {
           </div>
         </div>
       </main>
+
+      {/* Registration Form Modal */}
+      <HakeemRegistrationForm 
+        open={showRegistrationForm}
+        onOpenChange={setShowRegistrationForm}
+      />
     </div>
   );
 };
