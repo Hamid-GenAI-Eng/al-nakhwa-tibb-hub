@@ -22,6 +22,7 @@ interface AuthContextType {
   verifyOTP: (otp: string) => Promise<void>;
   resendOTP: () => void;
   loginWithGoogle: () => Promise<void>;
+  registerAsHakeem: (hakeemData: any) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -151,6 +152,31 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const registerAsHakeem = async (hakeemData: any) => {
+    if (!user) {
+      throw new Error('User must be logged in to register as Hakeem');
+    }
+
+    setIsLoading(true);
+    try {
+      // Simulate API call to register as Hakeem
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Update user to Hakeem status
+      const updatedUser = {
+        ...user,
+        isHakeem: true
+      };
+      
+      setUser(updatedUser);
+      localStorage.setItem('al_nakhwa_user', JSON.stringify(updatedUser));
+    } catch (error) {
+      throw new Error('Hakeem registration failed');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('al_nakhwa_user');
@@ -165,6 +191,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     verifyOTP,
     resendOTP,
     loginWithGoogle,
+    registerAsHakeem,
     logout,
     isAuthenticated: !!user
   };

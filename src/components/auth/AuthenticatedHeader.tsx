@@ -21,7 +21,12 @@ const AuthenticatedHeader = () => {
   const [cartItemsCount] = useState(2); // Mock cart count
   const [wishlistCount] = useState(3); // Mock wishlist count
 
-  const navItems = [
+  const navItems = user?.isHakeem ? [
+    { name: "Dashboard", href: "/hakeem-dashboard", icon: User },
+    { name: "AI Chatbot", href: "/ai-chat", icon: Sparkles },
+    { name: "Products", href: "/products", icon: ShoppingBag },
+    { name: "Community", href: "/community", icon: MessageSquare },
+  ] : [
     { name: "AI Chatbot", href: "/ai-chat", icon: Sparkles },
     { name: "Find Hakeem", href: "/find-hakeem", icon: Users },
     { name: "Products", href: "/products", icon: ShoppingBag },
@@ -40,7 +45,7 @@ const AuthenticatedHeader = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/ai-chat" className="flex items-center space-x-2">
+          <Link to={user?.isHakeem ? "/hakeem-dashboard" : "/ai-chat"} className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg hero-gradient flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">ا</span>
             </div>
@@ -70,24 +75,28 @@ const AuthenticatedHeader = () => {
 
           {/* User Menu & Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Cart and Wishlist Icons */}
-            <Link to="/wishlist" className="relative p-2 hover:bg-muted rounded-lg transition-colors">
-              <Heart className="h-5 w-5" />
-              {wishlistCount > 0 && (
-                <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs p-0">
-                  {wishlistCount}
-                </Badge>
-              )}
-            </Link>
-            
-            <Link to="/cart" className="relative p-2 hover:bg-muted rounded-lg transition-colors">
-              <ShoppingCart className="h-5 w-5" />
-              {cartItemsCount > 0 && (
-                <Badge variant="default" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs p-0">
-                  {cartItemsCount}
-                </Badge>
-              )}
-            </Link>
+            {/* Cart and Wishlist Icons - Hide for Hakeem users */}
+            {!user?.isHakeem && (
+              <>
+                <Link to="/wishlist" className="relative p-2 hover:bg-muted rounded-lg transition-colors">
+                  <Heart className="h-5 w-5" />
+                  {wishlistCount > 0 && (
+                    <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs p-0">
+                      {wishlistCount}
+                    </Badge>
+                  )}
+                </Link>
+                
+                <Link to="/cart" className="relative p-2 hover:bg-muted rounded-lg transition-colors">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartItemsCount > 0 && (
+                    <Badge variant="default" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs p-0">
+                      {cartItemsCount}
+                    </Badge>
+                  )}
+                </Link>
+              </>
+            )}
 
             {/* User Dropdown */}
             <DropdownMenu>
@@ -102,6 +111,15 @@ const AuthenticatedHeader = () => {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                {user?.isHakeem && (
+                  <>
+                    <DropdownMenuItem onClick={() => navigate("/hakeem-dashboard")}>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Hakeem Dashboard</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
@@ -139,40 +157,42 @@ const AuthenticatedHeader = () => {
                 </Link>
               ))}
               
-              {/* Mobile Cart & Wishlist */}
-              <div className="flex space-x-4 py-2">
-                <Link
-                  to="/wishlist"
-                  className="flex items-center space-x-3 text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <div className="relative">
-                    <Heart size={18} />
-                    {wishlistCount > 0 && (
-                      <Badge variant="destructive" className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center text-xs p-0">
-                        {wishlistCount}
-                      </Badge>
-                    )}
-                  </div>
-                  <span>Wishlist</span>
-                </Link>
-                
-                <Link
-                  to="/cart"
-                  className="flex items-center space-x-3 text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <div className="relative">
-                    <ShoppingCart size={18} />
-                    {cartItemsCount > 0 && (
-                      <Badge variant="default" className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center text-xs p-0">
-                        {cartItemsCount}
-                      </Badge>
-                    )}
-                  </div>
-                  <span>Cart</span>
-                </Link>
-              </div>
+              {/* Mobile Cart & Wishlist - Hide for Hakeem users */}
+              {!user?.isHakeem && (
+                <div className="flex space-x-4 py-2">
+                  <Link
+                    to="/wishlist"
+                    className="flex items-center space-x-3 text-foreground hover:text-primary transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <div className="relative">
+                      <Heart size={18} />
+                      {wishlistCount > 0 && (
+                        <Badge variant="destructive" className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center text-xs p-0">
+                          {wishlistCount}
+                        </Badge>
+                      )}
+                    </div>
+                    <span>Wishlist</span>
+                  </Link>
+                  
+                  <Link
+                    to="/cart"
+                    className="flex items-center space-x-3 text-foreground hover:text-primary transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <div className="relative">
+                      <ShoppingCart size={18} />
+                      {cartItemsCount > 0 && (
+                        <Badge variant="default" className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center text-xs p-0">
+                          {cartItemsCount}
+                        </Badge>
+                      )}
+                    </div>
+                    <span>Cart</span>
+                  </Link>
+                </div>
+              )}
               <div className="pt-4 border-t border-border/50">
                 <div className="flex items-center space-x-3 pb-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">

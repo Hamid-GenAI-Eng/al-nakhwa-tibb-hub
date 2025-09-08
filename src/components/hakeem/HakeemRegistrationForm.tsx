@@ -10,7 +10,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Upload, ArrowLeft, ArrowRight, Check, User, MapPin, GraduationCap, Stethoscope, Building, Shield, FileText, Camera } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   // Basic Information
@@ -80,6 +82,9 @@ interface HakeemRegistrationFormProps {
 }
 
 const HakeemRegistrationForm = ({ open = false, onOpenChange, onClose, isEdit = false, initialData, onComplete }: HakeemRegistrationFormProps) => {
+  const { toast } = useToast();
+  const { registerAsHakeem } = useAuth();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
@@ -144,13 +149,39 @@ const HakeemRegistrationForm = ({ open = false, onOpenChange, onClose, isEdit = 
     });
   };
 
-  const handleSubmit = () => {
-    toast({
-      title: "Registration Submitted!",
-      description: "Your application will be reviewed within 48 hours.",
-    });
-    onOpenChange(false);
-    setCurrentStep(1);
+  const handleSubmit = async () => {
+    try {
+      // If not editing, register as Hakeem
+      if (!isEdit) {
+        await registerAsHakeem(formData);
+      }
+      
+      toast({
+        title: "Success!",
+        description: isEdit ? "Profile updated successfully!" : "Registration submitted successfully! You are now a Hakeem.",
+      });
+
+      if (onComplete) {
+        onComplete();
+      }
+      
+      if (onOpenChange) {
+        onOpenChange(false);
+      }
+      
+      setCurrentStep(1);
+
+      // Navigate to Hakeem dashboard after successful registration
+      if (!isEdit) {
+        navigate('/hakeem-dashboard');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const renderStepContent = () => {
