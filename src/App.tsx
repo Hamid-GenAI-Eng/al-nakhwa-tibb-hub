@@ -11,6 +11,7 @@ import AIChat from "./pages/AIChat";
 import FindHakeem from "./pages/FindHakeem";
 import HakeemProfile from "./pages/HakeemProfile";
 import HakeemChat from "./pages/HakeemChat";
+import HakeemDashboard from "./pages/HakeemDashboard";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
@@ -79,6 +80,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <HakeemChat />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/hakeem-dashboard" 
+              element={
+                <ProtectedRoute>
+                  <HakeemDashboard />
                 </ProtectedRoute>
               } 
             />

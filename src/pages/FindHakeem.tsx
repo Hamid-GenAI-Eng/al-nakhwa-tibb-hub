@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthenticatedHeader from "@/components/auth/AuthenticatedHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, MessageSquare, Sparkles, Star, MapPin, Clock, Globe, Search, Filter } from "lucide-react";
 import HakeemRegistrationForm from "@/components/hakeem/HakeemRegistrationForm";
+import { useAuth } from "@/contexts/AuthContext";
 
 const mockHakeems = [
   {
@@ -54,10 +55,18 @@ const mockHakeems = [
 
 const FindHakeem = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+
+  // Redirect Hakeem users to their dashboard
+  useEffect(() => {
+    if (user?.isHakeem) {
+      navigate("/hakeem-dashboard");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -187,20 +196,22 @@ const FindHakeem = () => {
             ))}
           </div>
 
-          {/* Call to Action */}
-          <div className="text-center mt-12">
-            <Card className="bg-muted/30 border-0">
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-bold mb-4">Are you a Hakeem?</h2>
-                <p className="text-muted-foreground mb-6">
-                  Join our platform to connect with patients seeking traditional medicine expertise
-                </p>
-                <Button variant="hero" size="lg" onClick={() => setShowRegistrationForm(true)}>
-                  Register as Hakeem
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Call to Action - Only show if not a Hakeem */}
+          {!user?.isHakeem && (
+            <div className="text-center mt-12">
+              <Card className="bg-muted/30 border-0">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold mb-4">Are you a Hakeem?</h2>
+                  <p className="text-muted-foreground mb-6">
+                    Join our platform to connect with patients seeking traditional medicine expertise
+                  </p>
+                  <Button variant="hero" size="lg" onClick={() => setShowRegistrationForm(true)}>
+                    Register as Hakeem
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </main>
 

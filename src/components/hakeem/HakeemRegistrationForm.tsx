@@ -71,11 +71,15 @@ const steps = [
 ];
 
 interface HakeemRegistrationFormProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  onClose?: () => void;
+  isEdit?: boolean;
+  initialData?: any;
+  onComplete?: () => void;
 }
 
-const HakeemRegistrationForm = ({ open, onOpenChange }: HakeemRegistrationFormProps) => {
+const HakeemRegistrationForm = ({ open = false, onOpenChange, onClose, isEdit = false, initialData, onComplete }: HakeemRegistrationFormProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
