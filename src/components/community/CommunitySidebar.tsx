@@ -27,11 +27,11 @@ import {
 } from "lucide-react";
 
 const mainItems = [
-  { title: "Feed", url: "#", icon: Home },
-  { title: "My Profile", url: "#profile", icon: User },
-  { title: "Messages", url: "#messages", icon: MessageSquare },
-  { title: "Groups", url: "#groups", icon: Users },
-  { title: "Bookmarks", url: "#bookmarks", icon: Bookmark },
+  { title: "Feed", url: "/community", icon: Home },
+  { title: "My Profile", url: "/community/profile", icon: User },
+  { title: "Messages", url: "/community/messages", icon: MessageSquare },
+  { title: "Groups", url: "/community/groups", icon: Users },
+  { title: "Bookmarks", url: "/community/bookmarks", icon: Bookmark },
   { title: "Settings", url: "#settings", icon: Settings },
 ];
 
@@ -68,7 +68,7 @@ const CommunitySidebar = () => {
   const location = useLocation();
   const collapsed = state === "collapsed";
   
-  const isActive = (url: string) => location.hash === url;
+  const isActive = (url: string) => location.pathname === url;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     `flex items-center space-x-3 p-3 rounded-lg transition-colors ${
       isActive ? "bg-primary/10 text-primary font-medium" : "hover:bg-muted/50"
@@ -123,10 +123,10 @@ const CommunitySidebar = () => {
               {mainItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url} className={getNavCls({ isActive: isActive(item.url) })}>
+                    <NavLink to={item.url} className={getNavCls({ isActive: isActive(item.url) })} end>
                       <item.icon className="h-4 w-4 lg:h-5 lg:w-5 flex-shrink-0" />
                       {!collapsed && <span className="text-sm lg:text-base">{item.title}</span>}
-                    </a>
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

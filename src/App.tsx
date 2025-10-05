@@ -7,6 +7,10 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Index from "./pages/Index";
 import Community from "./pages/Community";
+import CommunityProfile from "./pages/CommunityProfile";
+import CommunityMessages from "./pages/CommunityMessages";
+import CommunityGroups from "./pages/CommunityGroups";
+import CommunityBookmarks from "./pages/CommunityBookmarks";
 import AIChat from "./pages/AIChat";
 import FindHakeem from "./pages/FindHakeem";
 import HakeemProfile from "./pages/HakeemProfile";
@@ -52,6 +56,38 @@ const App = () => (
               } 
             />
             <Route 
+              path="/community/profile" 
+              element={
+                <ProtectedRoute>
+                  <CommunityProfile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/community/messages" 
+              element={
+                <ProtectedRoute>
+                  <CommunityMessages />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/community/groups" 
+              element={
+                <ProtectedRoute>
+                  <CommunityGroups />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/community/bookmarks" 
+              element={
+                <ProtectedRoute>
+                  <CommunityBookmarks />
+                </ProtectedRoute>
+              } 
+            />
+            <Route
               path="/ai-chat" 
               element={
                 <ProtectedRoute>
