@@ -5,9 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Send, Bot, Sparkles, Shield, Award, Users } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
   const [chatMessage, setChatMessage] = useState("");
+  const { t } = useLanguage();
   
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,9 +18,15 @@ const HeroSection = () => {
   };
 
   const trustBadges = [
-    { icon: Shield, label: "Certified Remedies" },
-    { icon: Award, label: "Licensed Hakeems" },
-    { icon: Users, label: "10k+ Satisfied Users" },
+    { icon: Shield, label: t("hero.certified") },
+    { icon: Award, label: t("hero.licensed") },
+    { icon: Users, label: t("hero.satisfied") },
+  ];
+
+  const sampleQuestions = [
+    t("hero.sample1"),
+    t("hero.sample2"),
+    t("hero.sample3")
   ];
 
   return (
@@ -29,21 +37,19 @@ const HeroSection = () => {
           <div className="space-y-8">
             {/* Trust Badge */}
             <Badge variant="secondary" className="w-fit">
-              <Sparkles className="w-3 h-3 mr-2" />
-              Reviving Wisdom of Tibb with AI
+              <Sparkles className="w-3 h-3 mx-2" />
+              {t("hero.badge")}
             </Badge>
             
             {/* Main Headline */}
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                <span className="text-gradient-primary">Healing Through</span>
+                <span className="text-gradient-primary">{t("hero.healing")}</span>
                 <br />
-                <span className="text-foreground">Nature & Wisdom</span>
+                <span className="text-foreground">{t("hero.nature")}</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg">
-                Al-Nakhwa combines ancient Desi medicine wisdom with modern AI technology. 
-                Get personalized health guidance, consult certified Hakeems, and access 
-                premium natural remedies.
+                {t("hero.description")}
               </p>
             </div>
 
@@ -55,29 +61,29 @@ const HeroSection = () => {
                     <Bot className="w-5 h-5 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground">Ask Our AI Hakeem</h3>
-                    <p className="text-sm text-muted-foreground">Get instant guidance on Desi remedies</p>
+                    <h3 className="font-semibold text-foreground">{t("hero.askAI")}</h3>
+                    <p className="text-sm text-muted-foreground">{t("hero.aiSubtitle")}</p>
                   </div>
                 </div>
                 
                 <form onSubmit={handleChatSubmit} className="space-y-3">
                   <Input
-                    placeholder="Ask about any health concern, remedy, or ingredient..."
+                    placeholder={t("hero.placeholder")}
                     value={chatMessage}
                     onChange={(e) => setChatMessage(e.target.value)}
                     className="border-primary/20 focus:border-primary"
                   />
                   <Button type="submit" variant="hero" className="w-full">
-                    <Send className="w-4 h-4 mr-2" />
-                    Get AI Guidance
+                    <Send className="w-4 h-4 mx-2" />
+                    {t("hero.getGuidance")}
                   </Button>
                 </form>
                 
                 {/* Sample Questions */}
                 <div className="mt-4 space-y-2">
-                  <p className="text-xs text-muted-foreground mb-2">Try asking:</p>
+                  <p className="text-xs text-muted-foreground mb-2">{t("hero.tryAsking")}</p>
                   <div className="flex flex-wrap gap-2">
-                    {["Best remedy for cold", "Benefits of turmeric", "Digestive herbs"].map((sample) => (
+                    {sampleQuestions.map((sample) => (
                       <Badge 
                         key={sample} 
                         variant="outline" 
@@ -122,8 +128,8 @@ const HeroSection = () => {
                   <Award className="w-6 h-6 text-trust-foreground" />
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground text-sm">Premium Quality</p>
-                  <p className="text-xs text-muted-foreground">Authenticated Remedies</p>
+                  <p className="font-semibold text-foreground text-sm">{t("hero.premium")}</p>
+                  <p className="text-xs text-muted-foreground">{t("hero.authenticated")}</p>
                 </div>
               </div>
             </div>

@@ -13,38 +13,56 @@ import {
   Leaf,
   Heart
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ServiceCards = () => {
+  const { t } = useLanguage();
+  
   const services = [
     {
       id: "hakeem",
-      title: "Find & Consult Hakeem",
-      description: "Connect with certified Hakeems across Pakistan and globally. Book consultations, view ratings, and get personalized Tibb guidance.",
+      title: t("services.hakeem.title"),
+      description: t("services.hakeem.desc"),
       icon: Users,
       color: "primary",
-      features: ["Verified Profiles", "Online/Offline Consultation", "Rating System", "Multi-language Support"],
-      stats: { label: "Active Hakeems", value: "500+" },
-      badge: "Most Trusted"
+      features: [
+        t("services.hakeem.feat1"),
+        t("services.hakeem.feat2"),
+        t("services.hakeem.feat3"),
+        t("services.hakeem.feat4")
+      ],
+      stats: { label: t("services.hakeem.stats"), value: "500+" },
+      badge: t("services.hakeem.badge")
     },
     {
       id: "store",
-      title: "Premium Medicine Store", 
-      description: "Authentic Desi medicines, herbs, and natural ingredients. All products are quality-tested and certified for purity and effectiveness.",
+      title: t("services.store.title"),
+      description: t("services.store.desc"),
       icon: ShoppingBag,
       color: "secondary",
-      features: ["Certified Products", "Same-day Delivery", "Money-back Guarantee", "Bulk Orders Available"],
-      stats: { label: "Products Available", value: "2000+" },
-      badge: "Quality Assured"
+      features: [
+        t("services.store.feat1"),
+        t("services.store.feat2"),
+        t("services.store.feat3"),
+        t("services.store.feat4")
+      ],
+      stats: { label: t("services.store.stats"), value: "2000+" },
+      badge: t("services.store.badge")
     },
     {
       id: "community",
-      title: "Global Hakeem Community",
-      description: "A professional network where Hakeems worldwide share knowledge, research, and collaborate on traditional medicine advancements.",
+      title: t("services.community.title"),
+      description: t("services.community.desc"),
       icon: MessageSquare,
       color: "trust",
-      features: ["Research Sharing", "Case Discussions", "Peer Review", "Continuing Education"],
-      stats: { label: "Community Members", value: "1200+" },
-      badge: "Knowledge Hub"
+      features: [
+        t("services.community.feat1"),
+        t("services.community.feat2"),
+        t("services.community.feat3"),
+        t("services.community.feat4")
+      ],
+      stats: { label: t("services.community.stats"), value: "1200+" },
+      badge: t("services.community.badge")
     }
   ];
 
@@ -73,15 +91,14 @@ const ServiceCards = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">
-            <Leaf className="w-3 h-3 mr-2" />
-            Our Services
+            <Leaf className="w-3 h-3 mx-2" />
+            {t("services.badge")}
           </Badge>
           <h2 className="text-4xl font-bold mb-4">
-            <span className="text-gradient-primary">Complete Healthcare</span> Ecosystem
+            <span className="text-gradient-primary">{t("services.complete")}</span> {t("services.ecosystem")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From AI-powered guidance to expert consultations, premium medicines to global community - 
-            everything you need for holistic Desi healthcare.
+            {t("services.description")}
           </p>
         </div>
 
@@ -132,8 +149,8 @@ const ServiceCards = () => {
                   variant={service.color === "primary" ? "hero" : service.color === "secondary" ? "premium" : "trust"} 
                   className="w-full"
                 >
-                  Explore {service.title.split(" ")[0]}
-                  <Heart size={16} className="ml-2" />
+                  {t("services.explore")} {service.title.split(" ")[0]}
+                  <Heart size={16} className="mx-2" />
                 </Button>
               </CardContent>
             </Card>
@@ -148,17 +165,16 @@ const ServiceCards = () => {
               <Clock className="w-8 h-8 text-primary" />
               <MapPin className="w-8 h-8 text-trust" />
             </div>
-            <h3 className="text-2xl font-bold mb-4">Join Pakistan's Leading Tibb Platform</h3>
+            <h3 className="text-2xl font-bold mb-4">{t("services.join")}</h3>
             <p className="text-muted-foreground mb-6">
-              Over 10,000 satisfied customers trust Al-Nakhwa for their traditional medicine needs. 
-              Experience the perfect blend of ancient wisdom and modern convenience.
+              {t("services.joinDesc")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="lg">
-                Start Your Journey
+                {t("services.startJourney")}
               </Button>
               <Button variant="outline" size="lg">
-                Learn More
+                {t("services.learnMore")}
               </Button>
             </div>
           </div>

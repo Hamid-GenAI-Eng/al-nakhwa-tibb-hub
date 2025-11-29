@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Bot, Stethoscope, Package, MessageSquare } from "lucide-react";
+import { Menu, X, Bot, Stethoscope, Package, MessageSquare, Languages } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
   const navItems = [
-    { name: "AI Assistant", href: "/ai-chat", icon: Bot },
-    { name: "Find Hakeem", href: "/find-hakeem", icon: Stethoscope },
-    { name: "Products", href: "/products", icon: Package },
-    { name: "Community", href: "/community", icon: MessageSquare },
+    { name: t("nav.aiAssistant"), href: "/ai-chat", icon: Bot },
+    { name: t("nav.findHakeem"), href: "/find-hakeem", icon: Stethoscope },
+    { name: t("nav.products"), href: "/products", icon: Package },
+    { name: t("nav.community"), href: "/community", icon: MessageSquare },
   ];
 
   return (
@@ -53,14 +55,23 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* Language Toggle & CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="gap-2"
+            >
+              <Languages className="h-4 w-4" />
+              <span className="text-sm font-medium">{language === "en" ? "اردو" : "English"}</span>
+            </Button>
             <Button 
               variant="hero" 
               size="sm"
               onClick={() => setIsAuthModalOpen(true)}
             >
-              Get Started
+              {t("nav.getStarted")}
             </Button>
           </div>
 
@@ -100,16 +111,25 @@ const Header = () => {
                   </a>
                 )
               ))}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleLanguage}
+                className="w-full gap-2"
+              >
+                <Languages className="h-4 w-4" />
+                <span>{language === "en" ? "اردو میں دیکھیں" : "View in English"}</span>
+              </Button>
               <Button 
                 variant="hero" 
                 size="sm" 
-                className="w-full mt-4"
+                className="w-full mt-2"
                 onClick={() => {
                   setIsAuthModalOpen(true);
                   setIsMenuOpen(false);
                 }}
               >
-                Get Started
+                {t("nav.getStarted")}
               </Button>
             </nav>
           </div>
