@@ -141,6 +141,44 @@
   body {
     @apply bg-background text-foreground font-inter;
     background-image: var(--pattern-geometric);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: font-family 0.3s ease;
+  }
+  
+  /* RTL Support for Urdu */
+  [dir="rtl"] body {
+    font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
+  }
+
+  [dir="rtl"] .flex {
+    flex-direction: row-reverse;
+  }
+
+  [dir="rtl"] .space-x-2 > * + *,
+  [dir="rtl"] .space-x-3 > * + *,
+  [dir="rtl"] .space-x-4 > * + *,
+  [dir="rtl"] .space-x-6 > * + * {
+    margin-right: var(--tw-space-x-reverse);
+    margin-left: 0;
+  }
+
+  [dir="rtl"] .text-left {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-right {
+    text-align: left;
+  }
+
+  [dir="rtl"] .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+  }
+
+  [dir="rtl"] .ml-2 {
+    margin-left: 0;
+    margin-right: 0.5rem;
   }
   
   h1, h2, h3, h4, h5, h6 {

@@ -15,44 +15,47 @@ import {
   Award,
   Heart
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   const footerLinks = {
     services: {
-      title: "Services",
+      title: t("footer.services"),
       links: [
-        { name: "AI Health Guidance", href: "#chatbot" },
-        { name: "Find Hakeem", href: "#hakeem" },
-        { name: "Medicine Store", href: "#store" },
-        { name: "Global Community", href: "#community" },
+        { name: t("footer.aiHealth"), href: "#chatbot" },
+        { name: t("footer.findHakeem"), href: "#hakeem" },
+        { name: t("footer.medicineStore"), href: "#store" },
+        { name: t("footer.globalCommunity"), href: "#community" },
       ]
     },
     company: {
-      title: "Company",
+      title: t("footer.company"),
       links: [
-        { name: "About Us", href: "/about-us" },
-        { name: "Our Story", href: "/our-story" },
-        { name: "Careers", href: "/careers" },
-        { name: "Press Kit", href: "/press-kit" },
+        { name: t("footer.aboutUs"), href: "/about-us" },
+        { name: t("footer.ourStory"), href: "/our-story" },
+        { name: t("footer.careers"), href: "/careers" },
+        { name: t("footer.pressKit"), href: "/press-kit" },
       ]
     },
     resources: {
-      title: "Resources",
+      title: t("footer.resources"),
       links: [
-        { name: "Health Articles", href: "/health-articles" },
-        { name: "Remedy Guide", href: "/remedy-guide" },
-        { name: "Research Papers", href: "/research-papers" },
-        { name: "Al-Nukhwa Journal", href: "/al-nukhwa-journal" },
-        { name: "FAQs", href: "/faq" },
+        { name: t("footer.healthArticles"), href: "/health-articles" },
+        { name: t("footer.remedyGuide"), href: "/remedy-guide" },
+        { name: t("footer.researchPapers"), href: "/research-papers" },
+        { name: t("footer.journal"), href: "/al-nukhwa-journal" },
+        { name: t("footer.faqs"), href: "/faq" },
       ]
     },
     legal: {
-      title: "Legal",
+      title: t("footer.legal"),
       links: [
-        { name: "Privacy Policy", href: "/privacy-policy" },
-        { name: "Terms of Service", href: "/terms-of-service" },
-        { name: "Medical Disclaimer", href: "/medical-disclaimer" },
-        { name: "Refund Policy", href: "/refund-policy" },
+        { name: t("footer.privacy"), href: "/privacy-policy" },
+        { name: t("footer.terms"), href: "/terms-of-service" },
+        { name: t("footer.disclaimer"), href: "/medical-disclaimer" },
+        { name: t("footer.refund"), href: "/refund-policy" },
       ]
     }
   };
@@ -65,9 +68,9 @@ const Footer = () => {
   ];
 
   const trustBadges = [
-    { icon: Shield, text: "ISO Certified" },
-    { icon: Award, text: "WHO Approved" },
-    { icon: Leaf, text: "100% Natural" },
+    { icon: Shield, text: t("footer.isoCertified") },
+    { icon: Award, text: t("footer.whoApproved") },
+    { icon: Leaf, text: t("footer.natural") },
   ];
 
   return (
@@ -76,20 +79,20 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto text-center mb-12">
           <Badge variant="secondary" className="mb-4">
-            <Heart className="w-3 h-3 mr-2" />
-            Stay Connected
+            <Heart className="w-3 h-3 mx-2" />
+            {t("footer.stayConnected")}
           </Badge>
-          <h3 className="text-2xl font-bold mb-4">Get Health Tips & Updates</h3>
+          <h3 className="text-2xl font-bold mb-4">{t("footer.getTips")}</h3>
           <p className="text-muted-foreground mb-6">
-            Subscribe to receive weekly Desi health tips, new remedy discoveries, and exclusive offers.
+            {t("footer.subscribeDesc")}
           </p>
           <div className="flex max-w-md mx-auto gap-3">
             <Input 
-              placeholder="Enter your email" 
+              placeholder={t("footer.emailPlaceholder")}
               type="email"
               className="flex-1"
             />
-            <Button variant="hero">Subscribe</Button>
+            <Button variant="hero">{t("footer.subscribe")}</Button>
           </div>
         </div>
 
@@ -107,8 +110,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs">
-              Reviving the wisdom of traditional Desi medicine with modern AI technology. 
-              Your trusted partner in natural healing and wellness.
+              {t("footer.tagline")}
             </p>
             
             {/* Trust Badges */}
@@ -167,27 +169,27 @@ const Footer = () => {
 
         {/* Contact Information */}
         <div className="mt-12 p-6 card-gradient rounded-xl shadow-soft">
-          <h5 className="font-semibold text-foreground mb-4">Get In Touch</h5>
+          <h5 className="font-semibold text-foreground mb-4">{t("footer.getInTouch")}</h5>
           <div className="grid md:grid-cols-3 gap-4">
             <div className="flex items-center space-x-3">
               <MapPin className="w-5 h-5 text-primary" />
               <div>
-                <p className="text-sm font-medium">Address</p>
-                <p className="text-xs text-muted-foreground">Karachi, Pakistan</p>
+                <p className="text-sm font-medium">{t("footer.address")}</p>
+                <p className="text-xs text-muted-foreground">{t("footer.addressValue")}</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
               <Phone className="w-5 h-5 text-primary" />
               <div>
-                <p className="text-sm font-medium">Phone</p>
-                <p className="text-xs text-muted-foreground">+92 300 1234567</p>
+                <p className="text-sm font-medium">{t("footer.phone")}</p>
+                <p className="text-xs text-muted-foreground">{t("footer.phoneValue")}</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
               <Mail className="w-5 h-5 text-primary" />
               <div>
-                <p className="text-sm font-medium">Email</p>
-                <p className="text-xs text-muted-foreground">info@alnakhwa.com</p>
+                <p className="text-sm font-medium">{t("footer.email")}</p>
+                <p className="text-xs text-muted-foreground">{t("footer.emailValue")}</p>
               </div>
             </div>
           </div>
@@ -196,12 +198,12 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-border/50 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-sm text-muted-foreground">
-            © 2024 Al-Nakhwa Tibb Hub. All rights reserved.
+            {t("footer.copyright")}
           </p>
           <div className="flex items-center space-x-6 text-sm">
-            <span className="text-muted-foreground">Made with</span>
+            <span className="text-muted-foreground">{t("footer.madeWith")}</span>
             <Heart size={14} className="text-red-500 fill-current" />
-            <span className="text-muted-foreground">in Pakistan</span>
+            <span className="text-muted-foreground">{t("footer.inPakistan")}</span>
           </div>
         </div>
       </div>
